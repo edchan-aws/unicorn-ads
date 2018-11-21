@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<% if @ad.present? %>
+  <p>
+    <strong>Category:</strong>
+    <%= @ad.category %>
+  </p>
+
+  <p>
+    <strong>Key words:</strong>
+    <%= @ad.key_words %>
+  </p>
+
+  <p>
+    <strong>Bid price in cents:</strong>
+    <%= @ad.bid_price_in_cents %>
+  </p>
+
+  <p>
+    <strong>Content:</strong>
+    <%= @ad.content %>
+  </p>
+
+  <p>
+    <strong>Image url:</strong>
+    <%= @ad.image_url %>
+  </p>
+
+  <%= link_to 'Edit', edit_ad_path(@ad) %> |
+<% else %>
+    <p><strong>No Ad records found.</strong></p>
+<% end %>
+<%= link_to 'Back to all ads', ads_path %>
