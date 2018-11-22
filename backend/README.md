@@ -4,11 +4,29 @@
 
 ## Pre-requisites
 
+### Command line
+
+#### AWS CLI
+
+* Need AWS CLI tool configured correctly
+* region (recommended: us-west-2 or us-east-2)
+* access key
+* secret access key 
+
+#### Permissions 
+
+These are broad permissions — you likely don’t need all this. Remove once done.
+
+* AmazonEC2ContainerRegistryFullAccess
+* AmazonEC2FullAccess
+* AmazonRDSFullAccess
+
+
 ## Steps to deploy
 
-#### Application
+### Application
 
-Login to ECR. (no output because of the $())
+Login to ECR. (no output because of $())
 
 ```
 $(aws ecr get-login --no-include-email --region [YOUR_AWS_REGION])
@@ -28,7 +46,7 @@ docker push [YOUR_AWS_ACCOUNT_NUMBER].dkr.ecr.us-west-2.amazonaws.com/unicorn-ad
 
 TODO Add further steps to deploy to Fargate...
 
-#### Databsse
+### Database
 
 Get default VPC id:
 
@@ -66,31 +84,3 @@ Create another Aurora database instance and associate it with the same cluster f
 aws rds create-db-instance --db-instance-identifier unicorn-ads-instance-replica --db-cluster-identifier unicorn-ads --engine aurora --db-instance-class db.t2.medium
 ```
 
-
-
-
-
-# README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
