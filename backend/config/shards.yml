@@ -1,0 +1,24 @@
+octopus:
+  replicated: true
+  fully_replicated: false
+  development:
+    read_replica_one:
+      adapter: mysql2
+      host: host.docker.internal
+      database: contacts
+  staging:
+    read_replica_one:
+      adapter: mysql2
+      host: <%= ENV['RDS_READ_REPLICA_ONE_HOSTNAME'] %>
+      database: contacts
+      username: contacts
+      password: Hacker355!
+      reconnect: true
+  production:
+    read_replica_one:
+      adapter: mysql2
+      host: <%= ENV['RDS_READ_REPLICA_ONE_HOSTNAME'] %>
+      database: contacts
+      username: contacts
+      password: Hacker355!
+      reconnect: true
