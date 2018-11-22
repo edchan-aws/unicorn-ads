@@ -8,6 +8,26 @@
 
 #### Application
 
+Login to ECR. (no output because of the $())
+
+```
+$(aws ecr get-login --no-include-email --region [YOUR_AWS_REGION])
+```
+
+Build the docker image for the unicorn-ads/backend docker repo
+
+```
+docker build -t unicorn-ads/backend .
+```
+
+Push this image to the docker repository
+
+```
+docker push [YOUR_AWS_ACCOUNT_NUMBER].dkr.ecr.us-west-2.amazonaws.com/unicorn-ads/backend:latest
+```
+
+TODO Add further steps to deploy to Fargate...
+
 #### Databsse
 
 Get default VPC id:
