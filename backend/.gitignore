@@ -44,11 +44,10 @@
 /.bundle
 
 # Ruby stuff
-.ruby-version
 .ruby-gemset
 
 # Rails
-Gemfile.lock
+#Gemfile.lock
 /public/system
 /coverage/
 /spec/tmp
