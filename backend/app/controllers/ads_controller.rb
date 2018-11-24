@@ -4,7 +4,7 @@ class AdsController < ApplicationController
   # GET /ads
   # GET /ads.json
   def index
-    @ads = Ad.all
+    @ads = Ad.using(read_replica_db).all
   end
 
   # GET /ads/1
@@ -27,7 +27,7 @@ class AdsController < ApplicationController
     @ad = Ad.new(ad_params)
 
     respond_to do |format|
-      if @ad.save
+      if Ad.using(master_db).create(@ad)
         format.html { redirect_to @ad, notice: 'Ad was successfully created.' }
         format.json { render :show, status: :created, location: @ad }
       else
@@ -40,15 +40,14 @@ class AdsController < ApplicationController
   # PATCH/PUT /ads/1
   # PATCH/PUT /ads/1.json
   def update
+    puts ad_params
     respond_to do |format|
-      Octopus.using(:master) do
-        if @ad.update(ad_params)
-          format.html { redirect_to @ad, notice: 'Ad was successfully updated.' }
-          format.json { render :show, status: :ok, location: @ad }
-        else
-          format.html { render :edit }
-          format.json { render json: @ad.errors, status: :unprocessable_entity }
-        end
+      if Ad.using(master_db).update(@ad.id, ad_params)
+        format.html { redirect_to @ad, notice: 'Ad was successfully updated.' }
+        format.json { render :show, status: :ok, location: @ad }
+      else
+        format.html { render :edit }
+        format.json { render json: @ad.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -56,7 +55,7 @@ class AdsController < ApplicationController
   # DELETE /ads/1
   # DELETE /ads/1.json
   def destroy
-    @ad.destroy
+    Ad.using(master_db).destroy(@ad.id)
     respond_to do |format|
       format.html { redirect_to ads_url, notice: 'Ad was successfully destroyed.' }
       format.json { head :no_content }
@@ -66,7 +65,7 @@ class AdsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_ad
-      @ad = Ad.using(:read_replica).find_by(id: params[:id])
+      @ad = Ad.using(read_replica_db).find_by(id: params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

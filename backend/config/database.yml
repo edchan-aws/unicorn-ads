@@ -16,13 +16,14 @@ default: &default
   username: ads
   password: Hacker355!
   port: 3306
-  host: unicorn-ads.cluster-cy9qnb8dhqgs.us-east-2.rds.amazonaws.com
 #  host: host.docker.internal
   socket: /tmp/mysql.sock
 
 development:
   <<: *default
   database: ads
+#  host: localhost
+  host: unicorn-ads.cluster-cy9qnb8dhqgs.us-east-2.rds.amazonaws.com
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".

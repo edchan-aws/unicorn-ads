@@ -10,6 +10,16 @@ octopus:
       adapter: mysql2
 #      host: host.docker.internal
       host: unicorn-ads.cluster-ro-cy9qnb8dhqgs.us-east-2.rds.amazonaws.com
+#      host: localhost
+      database: ads
+      username: ads
+      password: Hacker355!
+      port: 3306
+    frankfurt:
+      adapter: mysql2
+#      host: host.docker.internal
+      host: unicorn-ads-replica-cluster.cluster-czovohwl1fod.eu-central-1.rds.amazonaws.com
+#      host: localhost
       database: ads
       username: ads
       password: Hacker355!
@@ -17,7 +27,8 @@ octopus:
     frankfurt_ro:
       adapter: mysql2
 #      host: host.docker.internal
-      host: unicorn-ads.cluster-ro-cy9qnb8dhqgs.us-east-2.rds.amazonaws.com
+      host: unicorn-ads-replica-cluster.cluster-ro-czovohwl1fod.eu-central-1.rds.amazonaws.com
+#      host: localhost
       database: ads
       username: ads
       password: Hacker355!
@@ -45,3 +56,25 @@ octopus:
       username: <%= ENV['ADS_DB_USERNAME'] %>
       password: <%= ENV['ADS_DB_PASSWORD'] %>
       reconnect: true
+  production:
+    ohio_ro:
+      adapter: mysql2
+      host: unicorn-ads.cluster-ro-cy9qnb8dhqgs.us-east-2.rds.amazonaws.com
+      database: <%= ENV['ADS_DB_NAME'] %>
+      username: <%= ENV['ADS_DB_USERNAME'] %>
+      password: <%= ENV['ADS_DB_PASSWORD'] %>
+      port: 3306
+    frankfurt:
+      adapter: mysql2
+      host: unicorn-ads-replica-cluster.cluster-czovohwl1fod.eu-central-1.rds.amazonaws.com
+      database: <%= ENV['ADS_DB_NAME'] %>
+      username: <%= ENV['ADS_DB_USERNAME'] %>
+      password: <%= ENV['ADS_DB_PASSWORD'] %>
+      port: 3306
+    frankfurt_ro:
+      adapter: mysql2
+      host: unicorn-ads-replica-cluster.cluster-ro-czovohwl1fod.eu-central-1.rds.amazonaws.com
+      database: <%= ENV['ADS_DB_NAME'] %>
+      username: <%= ENV['ADS_DB_USERNAME'] %>
+      password: <%= ENV['ADS_DB_PASSWORD'] %>
+      port: 3306
