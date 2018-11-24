@@ -1,24 +1,47 @@
 octopus:
   replicated: true
-  fully_replicated: false
+  fully_replicated: true
+  environments:
+    - development
+    - staging
+    - production
   development:
-    read_replica_one:
+    ohio_ro:
       adapter: mysql2
-      host: host.docker.internal
-      database: contacts
+#      host: host.docker.internal
+      host: unicorn-ads.cluster-ro-cy9qnb8dhqgs.us-east-2.rds.amazonaws.com
+      database: ads
+      username: ads
+      password: Hacker355!
+      port: 3306
+    frankfurt_ro:
+      adapter: mysql2
+#      host: host.docker.internal
+      host: unicorn-ads.cluster-ro-cy9qnb8dhqgs.us-east-2.rds.amazonaws.com
+      database: ads
+      username: ads
+      password: Hacker355!
+      port: 3306
   staging:
-    read_replica_one:
+    read_replica:
       adapter: mysql2
-      host: <%= ENV['RDS_READ_REPLICA_ONE_HOSTNAME'] %>
-      database: contacts
-      username: contacts
+      host: <%= ENV['RDS_READ_REPLICA_HOSTNAME'] %>
+      database: ads
+      username: ads
       password: Hacker355!
       reconnect: true
   production:
-    read_replica_one:
+    read_replica:
       adapter: mysql2
-      host: <%= ENV['RDS_READ_REPLICA_ONE_HOSTNAME'] %>
-      database: contacts
-      username: contacts
-      password: Hacker355!
+      host: <%= ENV['RDS_READ_REPLICA_HOSTNAME'] %>
+      database: <%= ENV['ADS_DB_NAME'] %>
+      username: <%= ENV['ADS_DB_USERNAME'] %>
+      password: <%= ENV['ADS_DB_PASSWORD'] %>
+      reconnect: true
+    x_region_read_replica:
+      adapter: mysql2
+      host: <%= ENV['RDS_READ_REPLICA_HOSTNAME'] %>
+      database: <%= ENV['ADS_DB_NAME'] %>
+      username: <%= ENV['ADS_DB_USERNAME'] %>
+      password: <%= ENV['ADS_DB_PASSWORD'] %>
       reconnect: true
