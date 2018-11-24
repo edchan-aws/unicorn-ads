@@ -119,8 +119,9 @@ aws rds create-db-cluster \
   --engine aurora --master-username ads \
   --master-user-password [INSERT_DB_PASSWORD!] \
   --db-subnet-group-name unicorn-ads-subnet-group  \
-  --db-cluster-parameter-group-name unicorn-ads-db-cluster-parameter-group
-  --vpc-security-group-ids [INSERT_SECURITY_GROUP_ID]
+  --db-cluster-parameter-group-name unicorn-ads-db-cluster-parameter-group \
+  --vpc-security-group-ids [INSERT_SECURITY_GROUP_ID] \
+  --cloudwatch-logs-export-configuration '{"EnableLogTypes":["error","general","slowquery","audit"]}'
 ```
 
 Create the first Aurora database instance associated with above cluster (MySQL 5.6).
@@ -201,7 +202,6 @@ OPTIONAL: We'll need to pass the original DB cluster's ARN to the ```--replicati
 
 ```
 aws rds describe-db-clusters \
-  --region [INSERT_FAILOVER_REGION] \
   --db-cluster-identifier unicorn-ads | jq '.DBClusters[].DBClusterArn'
 ```
 
@@ -209,23 +209,22 @@ Create the Aurora read-replica database cluster (MySQL 5.6). Use the same securi
 
 ```
 aws rds create-db-cluster \
-  --region [INSERT_FAILOVER_REGION] 
+  --region [INSERT_FAILOVER_REGION] \
   --db-cluster-identifier unicorn-ads-replica-cluster \
   --replication-source-identifier [INSERT_ORIGINAL_DB_CLUSTER_ARN] \
   --engine aurora \
-  --master-username ads \
-  --master-user-password Hacker355! \
   --db-subnet-group-name unicorn-ads-subnet-group \
-  --vpc-security-group-ids [INSERT_SECURITY_GROUP_ID] 
+  --vpc-security-group-ids [INSERT_SECURITY_GROUP_ID] \
+  --enable-cloudwatch-logs-export '["error","general","slowquery","audit"]' 
 ```
 
 Create the first Aurora database instance associated with above read-replica cluster (MySQL 5.6).
 
 ```
 aws rds create-db-instance \
-  --region [INSERT_FAILOVER_REGION] \ 
+  --region [INSERT_FAILOVER_REGION] \
   --db-instance-identifier unicorn-ads-instance \
-  --db-cluster-identifier unicorn-ads-read-replica-cluster \
+  --db-cluster-identifier unicorn-ads-replica-cluster \
   --engine aurora \
   --db-instance-class db.t2.medium \
   --publicly-accessible
@@ -237,7 +236,7 @@ Create another Aurora database instance and associate it with the same read-repl
 aws rds create-db-instance \
   --region [INSERT_FAILOVER_REGION] \
   --db-instance-identifier unicorn-ads-instance-replica \
-  --db-cluster-identifier unicorn-ads-read-replica-cluster \
+  --db-cluster-identifier unicorn-ads-replica-cluster \
   --engine aurora \
   --db-instance-class db.t2.medium \
   --publicly-accessible
