@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Admin Db Configurations</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Value</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @admin_db_configurations.each do |admin_db_configuration| %>
+      <tr>
+        <td><%= admin_db_configuration.key %></td>
+        <td><%= admin_db_configuration.value %></td>
+        <td><%= link_to 'Show', admin_db_configuration %></td>
+        <td><%= link_to 'Edit', edit_admin_db_configuration_path(admin_db_configuration) %></td>
+        <td><%= link_to 'Destroy', admin_db_configuration, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Admin Db Configuration', new_admin_db_configuration_path %>

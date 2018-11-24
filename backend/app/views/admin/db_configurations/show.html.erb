@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Key:</strong>
+  <%= @admin_db_configuration.key %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @admin_db_configuration.value %>
+</p>
+
+<%= link_to 'Edit', edit_admin_db_configuration_path(@admin_db_configuration) %> |
+<%= link_to 'Back', admin_db_configurations_path %>
