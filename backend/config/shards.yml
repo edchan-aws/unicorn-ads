@@ -48,7 +48,7 @@ octopus:
     ohio_ro:
       adapter: mysql2
 #      host: unicorn-ads.cluster-ro-cy9qnb8dhqgs.us-east-2.rds.amazonaws.com
-      host: <%= ENV['ADS_DB_HOST_OHIO_RO] %>
+      host: <%= ENV['ADS_DB_HOST_OHIO_RO'] %>
       database: <%= ENV['ADS_DB_NAME'] %>
       username: <%= ENV['ADS_DB_USERNAME'] %>
       password: <%= ENV['ADS_DB_PASSWORD'] %>
