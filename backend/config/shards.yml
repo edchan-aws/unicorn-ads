@@ -53,7 +53,7 @@ octopus:
       username: <%= ENV['ADS_DB_USERNAME'] %>
       password: <%= ENV['ADS_DB_PASSWORD'] %>
       port: 3306
-      reconnect: trie
+      reconnect: true
     frankfurt:
       adapter: mysql2
 #      host: unicorn-ads-replica-cluster.cluster-czovohwl1fod.eu-central-1.rds.amazonaws.com
