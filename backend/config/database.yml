@@ -24,6 +24,7 @@ development:
   database: ads
 #  host: localhost
   host: unicorn-ads.cluster-cy9qnb8dhqgs.us-east-2.rds.amazonaws.com
+  reconnect: true
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -53,7 +54,7 @@ test:
 #
 production:
   <<: *default
-  host: <%= ENV['ADS_DB_HOST'] %>
+  host: <%= ENV['ADS_DB_HOST_MASTER'] %>
   database: <%= ENV['ADS_DB_NAME'] %>
   username: <%= ENV['ADS_DB_USERNAME'] %>
   password: <%= ENV['ADS_DB_PASSWORD'] %>

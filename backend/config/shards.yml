@@ -15,6 +15,7 @@ octopus:
       username: ads
       password: Hacker355!
       port: 3306
+      reconnect: true
     frankfurt:
       adapter: mysql2
 #      host: host.docker.internal
@@ -24,6 +25,7 @@ octopus:
       username: ads
       password: Hacker355!
       port: 3306
+      reconnect: true
     frankfurt_ro:
       adapter: mysql2
 #      host: host.docker.internal
@@ -33,6 +35,7 @@ octopus:
       username: ads
       password: Hacker355!
       port: 3306
+      reconnect: true
   staging:
     read_replica:
       adapter: mysql2
@@ -42,39 +45,30 @@ octopus:
       password: Hacker355!
       reconnect: true
   production:
-    read_replica:
-      adapter: mysql2
-      host: <%= ENV['RDS_READ_REPLICA_HOSTNAME'] %>
-      database: <%= ENV['ADS_DB_NAME'] %>
-      username: <%= ENV['ADS_DB_USERNAME'] %>
-      password: <%= ENV['ADS_DB_PASSWORD'] %>
-      reconnect: true
-    x_region_read_replica:
-      adapter: mysql2
-      host: <%= ENV['RDS_READ_REPLICA_HOSTNAME'] %>
-      database: <%= ENV['ADS_DB_NAME'] %>
-      username: <%= ENV['ADS_DB_USERNAME'] %>
-      password: <%= ENV['ADS_DB_PASSWORD'] %>
-      reconnect: true
-  production:
     ohio_ro:
       adapter: mysql2
-      host: unicorn-ads.cluster-ro-cy9qnb8dhqgs.us-east-2.rds.amazonaws.com
+#      host: unicorn-ads.cluster-ro-cy9qnb8dhqgs.us-east-2.rds.amazonaws.com
+      host: <%= ENV['ADS_DB_HOST_OHIO_RO] %>
       database: <%= ENV['ADS_DB_NAME'] %>
       username: <%= ENV['ADS_DB_USERNAME'] %>
       password: <%= ENV['ADS_DB_PASSWORD'] %>
       port: 3306
+      reconnect: trie
     frankfurt:
       adapter: mysql2
-      host: unicorn-ads-replica-cluster.cluster-czovohwl1fod.eu-central-1.rds.amazonaws.com
+#      host: unicorn-ads-replica-cluster.cluster-czovohwl1fod.eu-central-1.rds.amazonaws.com
+      host: <%= ENV['ADS_DB_HOST_FRANKFURT'] %>
       database: <%= ENV['ADS_DB_NAME'] %>
       username: <%= ENV['ADS_DB_USERNAME'] %>
       password: <%= ENV['ADS_DB_PASSWORD'] %>
       port: 3306
+      reconnect: true
     frankfurt_ro:
       adapter: mysql2
-      host: unicorn-ads-replica-cluster.cluster-ro-czovohwl1fod.eu-central-1.rds.amazonaws.com
+#      host: unicorn-ads-replica-cluster.cluster-ro-czovohwl1fod.eu-central-1.rds.amazonaws.com
+      host: <%= ENV['ADS_DB_HOST_FRANKFURT_RO'] %>
       database: <%= ENV['ADS_DB_NAME'] %>
       username: <%= ENV['ADS_DB_USERNAME'] %>
       password: <%= ENV['ADS_DB_PASSWORD'] %>
       port: 3306
+      reconnect: true
