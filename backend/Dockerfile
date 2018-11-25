@@ -25,7 +25,7 @@ COPY Gemfile Gemfile.lock ./
 RUN gem install bundler && bundle install
 
 # Copy the main application.
-#COPY . /ads
+COPY . .
 
 # Expose port 3000 to the Docker host, so we can access it 
 # from the outside.
