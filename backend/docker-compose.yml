@@ -1,7 +1,13 @@
-app:
-  build: .
-  command: rails server -p 3000 -b '0.0.0.0'
-  volumes:
-    - .:/app
-  ports:
-    - "3000:3000"
+version: '3.2'
+services:
+  app:
+    build: .
+    env_file:
+      - config/docker/.env
+    command: rails server -p 3000 -b '0.0.0.0'
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"
+    environment:
+      - RAILS_ENV=development
