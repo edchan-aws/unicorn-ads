@@ -8,9 +8,7 @@ octopus:
   development:
     ohio_ro:
       adapter: mysql2
-#      host: host.docker.internal
-      host: unicorn-ads.cluster-ro-cy9qnb8dhqgs.us-east-2.rds.amazonaws.com
-#      host: localhost
+      host: [YOUR_DB_CLUSTER_READONLY_ENDPOINT_IN_PRIMARY_REGION]
       database: ads
       username: ads
       password: Hacker355!
@@ -18,9 +16,7 @@ octopus:
       reconnect: true
     frankfurt:
       adapter: mysql2
-#      host: host.docker.internal
-      host: unicorn-ads-replica-cluster.cluster-czovohwl1fod.eu-central-1.rds.amazonaws.com
-#      host: localhost
+      host: [YOUR_DB_CLUSTER_ENDPOINT_IN_SECONDARY_REGION]
       database: ads
       username: ads
       password: Hacker355!
@@ -28,9 +24,7 @@ octopus:
       reconnect: true
     frankfurt_ro:
       adapter: mysql2
-#      host: host.docker.internal
-      host: unicorn-ads-replica-cluster.cluster-ro-czovohwl1fod.eu-central-1.rds.amazonaws.com
-#      host: localhost
+      host: [YOUR_DB_CLUSTER_READONLY_ENDPOINT_IN_SECONDARY_REGION]
       database: ads
       username: ads
       password: Hacker355!
@@ -47,7 +41,6 @@ octopus:
   production:
     ohio_ro:
       adapter: mysql2
-#      host: unicorn-ads.cluster-ro-cy9qnb8dhqgs.us-east-2.rds.amazonaws.com
       host: <%= ENV['ADS_DB_HOST_OHIO_RO'] %>
       database: <%= ENV['ADS_DB_NAME'] %>
       username: <%= ENV['ADS_DB_USERNAME'] %>
@@ -56,7 +49,6 @@ octopus:
       reconnect: true
     frankfurt:
       adapter: mysql2
-#      host: unicorn-ads-replica-cluster.cluster-czovohwl1fod.eu-central-1.rds.amazonaws.com
       host: <%= ENV['ADS_DB_HOST_FRANKFURT'] %>
       database: <%= ENV['ADS_DB_NAME'] %>
       username: <%= ENV['ADS_DB_USERNAME'] %>
@@ -65,7 +57,6 @@ octopus:
       reconnect: true
     frankfurt_ro:
       adapter: mysql2
-#      host: unicorn-ads-replica-cluster.cluster-ro-czovohwl1fod.eu-central-1.rds.amazonaws.com
       host: <%= ENV['ADS_DB_HOST_FRANKFURT_RO'] %>
       database: <%= ENV['ADS_DB_NAME'] %>
       username: <%= ENV['ADS_DB_USERNAME'] %>
