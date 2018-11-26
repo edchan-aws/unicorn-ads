@@ -296,7 +296,7 @@ Get all the subnets for the VPC
 
 ```
 aws ec2 describe-subnets \
-  --filters "Name=vpc-id,Values=vpc-da36d5b3" | jq '.Subnets[].SubnetId'
+  --filters "Name=vpc-id,Values=[YOUR_DEFAULT_VPC_ID]" | jq '.Subnets[].SubnetId'
 ```
 
 Create the ECS service
