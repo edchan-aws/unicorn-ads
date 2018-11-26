@@ -1,6 +1,4 @@
-# README
-
-## Introduction
+# Backend
 
 ## Pre-requisites
 
@@ -9,22 +7,21 @@
 #### AWS CLI
 
 * Need AWS CLI tool configured correctly
-* region (recommended: us-west-2 or us-east-2)
-* access key
-* secret access key 
+* We will be using the **Ohio** and **Frankfurt** regions (us-east-2 or eu-central-1)
+* **Primary Region** Ohio `US-EAST-2`
+* **Failover Region** Frankfurt `EU-CENTRAL-1`
+* AWS Account Access Key
+* AWS Account Secret Access Key 
 
-#### Permissions 
+#### IAM Permissions 
 
-These are broad permissions — you likely don’t need all this. Remove once done.
+These are broad IAM permissions — you likely don’t need all this. Remove once done. This will ensure you do not have issues launching the Aurora database clusters.
 
-* AmazonEC2ContainerRegistryFullAccess
 * AmazonEC2FullAccess
 * AmazonRDSFullAccess
 
 
-## Steps to deploy
-
-### Application
+## Deployment
 
 ### Database
 
@@ -97,7 +94,7 @@ Create the Aurora database cluster (MySQL 5.6).
 aws rds create-db-cluster \
   --db-cluster-identifier unicorn-ads \
   --engine aurora --master-username ads \
-  --master-user-password [INSERT_DB_PASSWORD!] \
+  --master-user-password Hacker355! \
   --db-subnet-group-name unicorn-ads-subnet-group  \
   --db-cluster-parameter-group-name unicorn-ads-db-cluster-parameter-group \
   --vpc-security-group-ids [INSERT_SECURITY_GROUP_ID] \
@@ -222,95 +219,22 @@ aws rds create-db-instance \
   --publicly-accessible
 ```
 
-#### Docker Repo
+### Backend Container
+Now that we have the database setup, navigate to the `backend` directory to run the backend container.
 
-Create an ECR docker repo to host our docker images
-
+Run the following command to build the container
 ```
-aws ecr create-repository --repository-name unicorn-ads/backend
-```
-
-#### Build and push docker container to Amazon ECR (Elastic Container Repository)
-
-Login to ECR. (no output because of $())
-
-```
-$(aws ecr get-login --no-include-email --region [YOUR_AWS_REGION])
+docker-compose build
 ```
 
-Build the docker image for the unicorn-ads/backend docker repo.
-
+Once that is complete, run this command to find the Docker Image ID of the container image you just created.
 ```
-docker build -t unicorn-ads/backend.
-```
-
-Tag your image so you can push the image to your repository.
-```
-docker tag unicorn-ads/backend:latest [INSERT_AWS_ACCOUNT_NUMBER].dkr.ecr.us-west-2.amazonaws.com/unicorn-ads/backend:latest
+docker images
 ```
 
-Push this image to the docker repository that you just created.
-
+Now that you identified the Docker Image ID, run the following command to run the backend container.
 ```
-docker push [INSERT_AWS_ACCOUNT_NUMBER].dkr.ecr.us-west-2.amazonaws.com/unicorn-ads/backend:latest
-```
-
-#### Create ECS Fargate cluster and service
-
-Create an ECS Fargate cluster which will eventually run our docker image as a service within it.
- 
-```
-aws ecs create-cluster --cluster-name unicorn-ads-ecs-fargate-cluster
+docker run -it -p 3000:3000 DOCKER_IMAGE_ID
 ```
 
-We will need to create a task (via a Task Definition configuration file) that the service in the above cluster will run.
- 
-To do this, there we will need to start with a task definition file. For convenience, we've already created one and added it to the repo. Look for the ```fargate-task-definition.json``` file in the repository under ```/backend/config/ecs```. We will need to modify this task definition with docker image repos, account ids, and other values that are specific to you.
-
-Look for placeholder YOUR_AWS_ACCOUNT_ID and replace them with your AWS account id
-
-Look for placeholder YOUR_ECR_DOCKER_IMAGE_URL and replace that with the URL of the docker image in the docker ECR repo that you created above.
-
-Look for all the DB host parameter placeholders (PRIMARY AND SECONDARY) and replace them appropriate cluster and cluster-RO endpoints for the primary and secondary regions.  
-
-```
-aws ecs register-task-definition --cli-input-json file://fargate-task-definition.json
-```
-
-Get default VPC id.
-
-```
-aws ec2 describe-vpcs | jq '.Vpcs[] | select(.IsDefault).VpcId'
-```
-
-Create a web security group that the ECS Fargate service will run containers in
-
-```
-aws ec2 create-security-group \
-  --group-name unicorn-ads-web-sg \
-  --description 'Unicorn ads web security group' \
-  --vpc-id [YOUR_DEFAULT_VPC_ID]  
-```
-
-Get all the subnets for the VPC
-
-```
-aws ec2 describe-subnets \
-  --filters "Name=vpc-id,Values=[YOUR_DEFAULT_VPC_ID]" | jq '.Subnets[].SubnetId'
-```
-
-Create the ECS service
-
-```
-aws ecs create-service \
-  --cluster unicorn-ads-ecs-fargate-cluster \
-  --service-name unicorn-ads-ecs-fargate-service \
-  --task-definition unicorn-ads-task-definition:1 \
-  --desired-count 1 --launch-type FARGATE \
-  --network-configuration "awsvpcConfiguration={subnets=['#SUBNET_1#', '#SUBNET_2#', '#SUBNET_3#'], securityGroups=['#SG_ID#']}"
-```
-
-
-
-TODO Add further steps to deploy to Fargate...
-
+Congratulations, the backend is now setup. Lets go back to the root of this repo and navigate into the `frontend` folder to build the frontend and connect it to your backend.

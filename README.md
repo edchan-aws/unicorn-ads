@@ -15,4 +15,17 @@ This workshop is split into two sections outlined below. You will need to build 
 
 ## Getting Started
 
-### Multi-Region Database Persistance
+Given that we only have one hour to setup this builder session, we will walk through setting up the container backend locally with Docker and also walking through setting up the Aurora MySQL clusters in both the Ohio and Frankfurt region.
+
+Let us start with setting up all the backend resources. Once you have completed setting up the backend environment, you will then stand up the frontend locally and have it use the backend resources. 
+
+**Backend**
+
+Go [here](https://github.com/migcerva/unicorn-ads/tree/master/backend) to get started with the backend setup.
+
+**Frontend**
+
+Go [here](https://github.com/migcerva/unicorn-ads/tree/master/frontend) to get started with the frontend setup.
+
+## Wrapping up
+Thank you for participating in this Builder Session! Before you head out, be sure to delete all of the Aurora databases from the Ohio and Frankfurt regions to avoid any further AWS costs. Also please fill out your evaluations.
