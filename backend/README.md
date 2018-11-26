@@ -9,22 +9,19 @@
 #### AWS CLI
 
 * Need AWS CLI tool configured correctly
-* region (recommended: us-west-2 or us-east-2)
-* access key
-* secret access key 
+* We will be using the **Ohio** and **Frankfurt** regions (us-east-2 or eu-central-1)
+* AWS Account Access Key
+* AWS Account Secret Access Key 
 
-#### Permissions 
+#### IAM Permissions 
 
-These are broad permissions — you likely don’t need all this. Remove once done.
+These are broad IAM permissions — you likely don’t need all this. Remove once done. This will ensure you do not have issues launching the Aurora database clusters.
 
-* AmazonEC2ContainerRegistryFullAccess
 * AmazonEC2FullAccess
 * AmazonRDSFullAccess
 
 
-## Steps to deploy
-
-### Application
+## Deployment
 
 ### Database
 
@@ -97,7 +94,7 @@ Create the Aurora database cluster (MySQL 5.6).
 aws rds create-db-cluster \
   --db-cluster-identifier unicorn-ads \
   --engine aurora --master-username ads \
-  --master-user-password [INSERT_DB_PASSWORD!] \
+  --master-user-password Hacker355! \
   --db-subnet-group-name unicorn-ads-subnet-group  \
   --db-cluster-parameter-group-name unicorn-ads-db-cluster-parameter-group \
   --vpc-security-group-ids [INSERT_SECURITY_GROUP_ID] \
@@ -221,3 +218,23 @@ aws rds create-db-instance \
   --db-instance-class db.t2.medium \
   --publicly-accessible
 ```
+
+### Application
+Now that we have the database setup, navigate to the `backend` directory to run the backend container.
+
+Run the following command to build the container
+```
+docker-compose build
+```
+
+Once that is complete, run this command to find the Docker Image ID of the container image you just created.
+```
+docker images
+```
+
+Now that you identified the Docker Image ID, run the following command to run the backend container.
+```
+docker run -it -p 3000:3000 DOCKER_IMAGE_ID
+```
+
+Congratulations, the backend is now setup. Lets go back to the root of this repo and navigate into the `frontend` folder to build the frontend and connect it to your backend.
