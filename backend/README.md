@@ -277,6 +277,12 @@ Look for all the DB host parameter placeholders (PRIMARY AND SECONDARY) and repl
 aws ecs register-task-definition --cli-input-json file://fargate-task-definition.json
 ```
 
+Get default VPC id.
+
+```
+aws ec2 describe-vpcs | jq '.Vpcs[] | select(.IsDefault).VpcId'
+```
+
 Create a web security group that the ECS Fargate service will run containers in
 
 ```
@@ -290,7 +296,7 @@ Get all the subnets for the VPC
 
 ```
 aws ec2 describe-subnets \
-  --filters "Name=vpc-id,Values=vpc-da36d5b3" | jq '.Subnets[].SubnetId'
+  --filters "Name=vpc-id,Values=[YOUR_DEFAULT_VPC_ID]" | jq '.Subnets[].SubnetId'
 ```
 
 Create the ECS service
@@ -301,7 +307,7 @@ aws ecs create-service \
   --service-name unicorn-ads-ecs-fargate-service \
   --task-definition unicorn-ads-task-definition:1 \
   --desired-count 1 --launch-type FARGATE \
-  --network-configuration "awsvpcConfiguration={subnets=['subnet-953a19df', 'subnet-956464ed', 'subnet-a524c6cc'], securityGroups=['sg-02525706dbe9bacf0']}"
+  --network-configuration "awsvpcConfiguration={subnets=['#SUBNET_1#', '#SUBNET_2#', '#SUBNET_3#'], securityGroups=['#SG_ID#']}"
 ```
 
 
