@@ -45,7 +45,12 @@ $(aws ecr get-login --no-include-email --region [YOUR_AWS_REGION])
 Build the docker image for the unicorn-ads/backend docker repo.
 
 ```
-docker build -t unicorn-ads/backend .
+docker build -t unicorn-ads/backend.
+```
+
+Tag your image so you can push the image to your repository.
+```
+docker tag unicorn-ads/backend:latest [INSERT_AWS_ACCOUNT_NUMBER].dkr.ecr.us-west-2.amazonaws.com/unicorn-ads/backend:latest
 ```
 
 Push this image to the docker repository that you just created.
