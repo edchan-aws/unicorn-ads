@@ -1,0 +1,74 @@
+{
+  "family": "unicorn-ads-task-definition",
+  "taskRoleArn": "arn:aws:iam::429749040773:role/ecsTaskRole",
+  "executionRoleArn": "arn:aws:iam::429749040773:role/ecsTaskExecutionRole",
+  "networkMode": "awsvpc",
+  "containerDefinitions": [
+    {
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/unicorn-ads-task-definition",
+          "awslogs-region": "us-west-2",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "protocol": "tcp",
+          "containerPort": 80
+        }
+      ],
+      "cpu": 0,
+      "environment": [
+        {
+          "name": "ADS_DB_HOST_FRANKFURT",
+          "value": "unicorn-ads-replica-cluster.cluster-czovohwl1fod.eu-central-1.rds.amazonaws.com"
+        },
+        {
+          "name": "ADS_DB_HOST_FRANKFURT_RO",
+          "value": "unicorn-ads-replica-cluster-ro.cluster-czovohwl1fod.eu-central-1.rds.amazonaws.com"
+        },
+        {
+          "name": "ADS_DB_HOST_MASTER",
+          "value": "unicorn-ads.cluster-cy9qnb8dhqgs.us-east-2.rds.amazonaws.com"
+        },
+        {
+          "name": "ADS_DB_HOST_OHIO_RO",
+          "value": "unicorn-ads.cluster-ro-cy9qnb8dhqgs.us-east-2.rds.amazonaws.com"
+        },
+        {
+          "name": "ADS_DB_NAME",
+          "value": "ads"
+        },
+        {
+          "name": "ADS_DB_PASSWORD",
+          "value": "Hacker355!"
+        },
+        {
+          "name": "ADS_DB_USERNAME",
+          "value": "ads"
+        },
+        {
+          "name": "RACK_ENV",
+          "value": "development"
+        },
+        {
+          "name": "RAILS_ENV",
+          "value": "development"
+        }
+      ],
+      "memoryReservation": 1024,
+      "image": "429749040773.dkr.ecr.us-west-2.amazonaws.com/unicorn-ads/backend",
+      "name": "unicorn-ads-container"
+    }
+  ],
+  "volumes": [],
+  "placementConstraints": [],
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "memory": "2048",
+  "cpu": "1024"
+}
