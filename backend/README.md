@@ -26,6 +26,16 @@ These are broad permissions — you likely don’t need all this. Remove once do
 
 ### Application
 
+#### Docker Repo
+
+Create an ECR docker repo to host our docker images
+
+```
+aws ecr create-repository --repository-name unicorn-ads/backend
+```
+
+#### Build and push docker container to Amazon ECR (Elastic Container Repository)
+
 Login to ECR. (no output because of $())
 
 ```
@@ -38,11 +48,35 @@ Build the docker image for the unicorn-ads/backend docker repo.
 docker build -t unicorn-ads/backend .
 ```
 
-Push this image to the docker repository.
+Push this image to the docker repository that you just created.
 
 ```
 docker push [INSERT_AWS_ACCOUNT_NUMBER].dkr.ecr.us-west-2.amazonaws.com/unicorn-ads/backend:latest
 ```
+
+#### Create ECS Fargate cluster and service
+
+Create an ECS Fargate cluster which will eventually run our docker image as a service within it.
+ 
+```
+aws ecs create-cluster --cluster-name unicorn-ads-ecs-fargate-cluster
+```
+
+We will need to create a task (via a Task Definition configuration file) that the service in the above cluster will run.
+ 
+To do this, there we will need to start with a task definition file. For convenience, we've already created one and added it to the repo. Look for the ```fargate-task-definition.json``` file in the repository under ```/backend/config/ecs```. We will need to modify this task definition with docker image repos, account ids, and other values that are specific to you.
+
+Look for placeholder YOUR_AWS_ACCOUNT_ID and replace them with your AWS account id
+
+Look for placeholder YOUR_ECR_DOCKER_IMAGE_URL and replace that with the URL of the docker image in the docker ECR repo that you created above.
+
+Look for all the DB host parameter placeholders (PRIMARY AND SECONDARY) and replace them appropriate cluster and cluster-RO endpoints for the primary and secondary regions.  
+
+```
+aws ecs register-task-definition --cli-input-json file://fargate-task-definition.json
+```
+
+
 
 TODO Add further steps to deploy to Fargate...
 
