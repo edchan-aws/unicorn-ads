@@ -286,6 +286,24 @@ aws ec2 create-security-group \
   --vpc-id [YOUR_DEFAULT_VPC_ID]  
 ```
 
+Get all the subnets for the VPC
+
+```
+aws ec2 describe-subnets \
+  --filters "Name=vpc-id,Values=vpc-da36d5b3" | jq '.Subnets[].SubnetId'
+```
+
+Create the ECS service
+
+```
+aws ecs create-service \
+  --cluster unicorn-ads-ecs-fargate-cluster \
+  --service-name unicorn-ads-ecs-fargate-service \
+  --task-definition unicorn-ads-task-definition:1 \
+  --desired-count 1 --launch-type FARGATE \
+  --network-configuration "awsvpcConfiguration={subnets=['subnet-953a19df', 'subnet-956464ed', 'subnet-a524c6cc'], securityGroups=['sg-02525706dbe9bacf0']}"
+```
+
 
 
 TODO Add further steps to deploy to Fargate...
