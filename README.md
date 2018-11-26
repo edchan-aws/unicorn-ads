@@ -15,4 +15,4 @@ This workshop is split into two sections outlined below. You will need to build 
 
 ## Getting Started
 
-### Multi-Region Database Persistance?
+### Multi-Region Database Persistance
