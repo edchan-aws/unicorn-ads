@@ -1,6 +1,4 @@
-# README
-
-## Introduction
+# Backend
 
 ## Pre-requisites
 
@@ -219,7 +217,7 @@ aws rds create-db-instance \
   --publicly-accessible
 ```
 
-### Application
+### Backend Container
 Now that we have the database setup, navigate to the `backend` directory to run the backend container.
 
 Run the following command to build the container
