@@ -223,6 +223,13 @@ aws rds create-db-instance \
 ### Backend Container
 Now that we have the database setup, navigate to the `backend` directory to run the backend container.
 
+1. We will need to get the Ohio Aurora Primary Endpoint URL and paste it into the `config/database.yml` file. Go to your AWS console, navigate to the Aurora console in the Ohio region and grab the Aurora Primary endpoint. Look for `[YOUR_DB_CLUSTER_ENDPOINT_IN_PRIMARY_REGION]` comment and paste the value their.
+1. We will need to get the Ohio Aurora Read Replica Endpoint URL and paste it into the `config/shards.yml` file. Go to your AWS console, navigate to the Aurora console in the Ohio region and grab the Aurora Read Replica endpoint URL. Look for `[YOUR_DB_CLUSTER_READONLY_ENDPOINT_IN_PRIMARY_REGION]` comment and paste the value their.
+1. We will need to get the Frankfurt Aurora Primary Endpoint URL and paste it into the `config/shards.yml` file. Go to your AWS console, navigate to the Aurora console in the Frankfurt region and grab the Aurora Primary endpoint URL. Look for `[YOUR_DB_CLUSTER_ENDPOINT_IN_SECONDARY_REGION]` comment and paste the value their.
+1. We will need to get the Frankfurt Aurora Read Replica Endpoint URL and paste it into the `config/shards.yml` file. Go to your AWS console, navigate to the Aurora console in the Frankfurt region and grab the Aurora Read Replica endpoint URL. Look for `[YOUR_DB_CLUSTER_READONLY_ENDPOINT_IN_SECONDARY_REGION]` comment and paste the value their.
+
+Now that we are done configuring the app with the database endpoints, we can now build the container and run it.
+
 Run the following command to build the container
 ```
 docker-compose build
