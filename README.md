@@ -1,4 +1,4 @@
-# Unicorn Ads Builder Session - ARC415
+# Unicorn Ads | re:Invent 2018 - ARC415
 
 ![Unicorn Ads](.images/unicorn-ads.png)
 
