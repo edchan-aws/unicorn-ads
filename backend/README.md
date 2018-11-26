@@ -307,7 +307,7 @@ aws ecs create-service \
   --service-name unicorn-ads-ecs-fargate-service \
   --task-definition unicorn-ads-task-definition:1 \
   --desired-count 1 --launch-type FARGATE \
-  --network-configuration "awsvpcConfiguration={subnets=['subnet-953a19df', 'subnet-956464ed', 'subnet-a524c6cc'], securityGroups=['sg-02525706dbe9bacf0']}"
+  --network-configuration "awsvpcConfiguration={subnets=['#SUBNET_1#', '#SUBNET_2#', '#SUBNET_3#'], securityGroups=['#SG_ID#']}"
 ```
 
 
