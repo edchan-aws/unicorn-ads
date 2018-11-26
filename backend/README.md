@@ -234,15 +234,9 @@ Run the following command to build the container
 ```
 docker-compose build
 ```
-
-Once that is complete, run this command to find the Docker Image ID of the container image you just created.
+Now run the following command to run the backend container.
 ```
-docker images
-```
-
-Now that you identified the Docker Image ID, run the following command to run the backend container.
-```
-docker run -it -p 3000:3000 DOCKER_IMAGE_ID
+docker-compose up
 ```
 
 Congratulations, the backend is now setup. Lets go back to the root of this repo and navigate into the `frontend` folder to build the frontend and connect it to your backend.
