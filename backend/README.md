@@ -81,6 +81,15 @@ Look for all the DB host parameter placeholders (PRIMARY AND SECONDARY) and repl
 aws ecs register-task-definition --cli-input-json file://fargate-task-definition.json
 ```
 
+Create a web security group that the ECS Fargate service will run containers in
+
+```
+aws ec2 create-security-group \
+  --group-name unicorn-ads-web-sg \
+  --description 'Unicorn ads web security group' \
+  --vpc-id [YOUR_DEFAULT_VPC_ID]  
+```
+
 
 
 TODO Add further steps to deploy to Fargate...
