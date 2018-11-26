@@ -169,7 +169,7 @@ aws rds create-db-cluster \
   --db-subnet-group-name unicorn-ads-subnet-group  \
   --db-cluster-parameter-group-name unicorn-ads-db-cluster-parameter-group \
   --vpc-security-group-ids [INSERT_SECURITY_GROUP_ID] \
-  --cloudwatch-logs-export-configuration '{"EnableLogTypes":["error","general","slowquery","audit"]}'
+  --enable-cloudwatch-logs-export '["error","general","slowquery","audit"]'
 ```
 
 Create the first Aurora database instance associated with above cluster (MySQL 5.6).
