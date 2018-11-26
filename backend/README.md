@@ -277,6 +277,12 @@ Look for all the DB host parameter placeholders (PRIMARY AND SECONDARY) and repl
 aws ecs register-task-definition --cli-input-json file://fargate-task-definition.json
 ```
 
+Get default VPC id.
+
+```
+aws ec2 describe-vpcs | jq '.Vpcs[] | select(.IsDefault).VpcId'
+```
+
 Create a web security group that the ECS Fargate service will run containers in
 
 ```
