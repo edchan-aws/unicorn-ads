@@ -1,7 +1,7 @@
 {
   "family": "unicorn-ads-task-definition",
-  "taskRoleArn": "arn:aws:iam::429749040773:role/ecsTaskRole",
-  "executionRoleArn": "arn:aws:iam::429749040773:role/ecsTaskExecutionRole",
+  "taskRoleArn": "arn:aws:iam::[YOUR_AWS_ACCOUNT_ID]:role/ecsTaskRole",
+  "executionRoleArn": "arn:aws:iam::[YOUR_AWS_ACCOUNT_ID]:role/ecsTaskExecutionRole",
   "networkMode": "awsvpc",
   "containerDefinitions": [
     {
@@ -24,19 +24,19 @@
       "environment": [
         {
           "name": "ADS_DB_HOST_FRANKFURT",
-          "value": "unicorn-ads-replica-cluster.cluster-czovohwl1fod.eu-central-1.rds.amazonaws.com"
+          "value": "[YOUR_DB_CLUSTER_ENDPOINT_IN_SECONDARY_REGION]"
         },
         {
           "name": "ADS_DB_HOST_FRANKFURT_RO",
-          "value": "unicorn-ads-replica-cluster-ro.cluster-czovohwl1fod.eu-central-1.rds.amazonaws.com"
+          "value": "[YOUR_DB_CLUSTER_READONLY_ENDPOINT_IN_SECONDARY_REGION]"
         },
         {
           "name": "ADS_DB_HOST_MASTER",
-          "value": "unicorn-ads.cluster-cy9qnb8dhqgs.us-east-2.rds.amazonaws.com"
+          "value": "[YOUR_DB_CLUSTER_ENDPOINT_IN_PRIMARY_REGION]"
         },
         {
           "name": "ADS_DB_HOST_OHIO_RO",
-          "value": "unicorn-ads.cluster-ro-cy9qnb8dhqgs.us-east-2.rds.amazonaws.com"
+          "value": "[YOUR_DB_CLUSTER_READONLY_ENDPOINT_IN_PRIMARY_REGION]"
         },
         {
           "name": "ADS_DB_NAME",
@@ -60,7 +60,7 @@
         }
       ],
       "memoryReservation": 1024,
-      "image": "429749040773.dkr.ecr.us-west-2.amazonaws.com/unicorn-ads/backend",
+      "image": "[YOUR_ECR_DOCKER_IMAGE_URL -- like YOUR_AWS_ACCOUNT_ID.dkr.ecr.us-west-2.amazonaws.com/unicorn-ads/backend]",
       "name": "unicorn-ads-container"
     }
   ],
