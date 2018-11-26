@@ -7,7 +7,7 @@ verify, and test a persistant multi-region database solution on AWS. This 400 le
 
 Unicorn Ads is a startup based out of the Silicon Valley that has entered the online marketplace arena.
 
-This workshop is split into two sections outlined below. YOu will need to build and host the frontend user interface and the container based backend.
+This workshop is split into two sections outlined below. You will need to build and host the frontend user interface and the container based backend.
 
 **Backend** - This is the container based backend API that will serve the ads to the frontend. It will also allow you to choose what database in what region the backend should be using.
 
