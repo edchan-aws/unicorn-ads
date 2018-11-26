@@ -4,6 +4,7 @@ class AdsController < ApplicationController
   # GET /ads
   # GET /ads.json
   def index
+    puts "Current read replica configuration: #{read_replica_db}"
     @ads = Ad.using(read_replica_db).all
   end
 
@@ -65,6 +66,7 @@ class AdsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_ad
+      puts "Read replica configuration: #{read_replica_db}"
       @ad = Ad.using(read_replica_db).find_by(id: params[:id])
     end
 

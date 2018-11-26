@@ -26,7 +26,7 @@ class Admin::DbConfiguration < ApplicationRecord
     # You can refine this and use more sophisticated latency or geolocation based
     # policies to route the user to the nearest "local_region_read_replica"
     region_pick = nil
-    if CONFIG[:SECONDARY].equal?(self.master_region)
+    if CONFIG[:SECONDARY][:REGION].equal?(self.master_region)
       region_pick = :SECONDARY
     else
       region_pick = :PRIMARY
