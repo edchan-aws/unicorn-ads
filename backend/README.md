@@ -8,6 +8,8 @@
 
 * Need AWS CLI tool configured correctly
 * We will be using the **Ohio** and **Frankfurt** regions (us-east-2 or eu-central-1)
+* **Primary Region** `US-EAST-2`
+* **Failover Region** `EU-CENTRAL-1`
 * AWS Account Access Key
 * AWS Account Secret Access Key 
 
