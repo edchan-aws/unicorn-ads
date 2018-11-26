@@ -17,7 +17,7 @@
         {
           "hostPort": 80,
           "protocol": "tcp",
-          "containerPort": 80
+          "containerPort": 3000
         }
       ],
       "cpu": 0,
