@@ -22,7 +22,7 @@ default: &default
 development:
   <<: *default
   database: ads
-  #  host: [YOUR_DB_CLUSTER_ENDPOINT_IN_PRIMARY_REGION]
+  host: [YOUR_DB_CLUSTER_ENDPOINT_IN_PRIMARY_REGION]
   reconnect: true
 
 # Warning: The database defined as "test" will be erased and
