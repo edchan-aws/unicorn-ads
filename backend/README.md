@@ -7,6 +7,7 @@
 #### AWS CLI
 
 * Need AWS CLI tool configured correctly
+* You need to make your default region `us-east-2`
 * We will be using the **Ohio** and **Frankfurt** regions (us-east-2 or eu-central-1)
 * **Primary Region** Ohio `US-EAST-2`
 * **Failover Region** Frankfurt `EU-CENTRAL-1`
