@@ -24,6 +24,7 @@ Let us start with setting up all the backend resources. Once you have completed 
 Go [here](https://github.com/migcerva/unicorn-ads/tree/master/backend) to get started with the backend setup.
 
 **Frontend**
+
 Go [here](https://github.com/migcerva/unicorn-ads/tree/master/frontend) to get started with the frontend setup.
 
 ## Wrapping up
