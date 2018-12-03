@@ -223,19 +223,20 @@ aws rds create-db-instance \
 ### Backend Container
 Now that we have the database setup, navigate to the `backend` directory to run the backend container.
 
+1. We will need to get the Ohio Aurora Primary Cluster Endpoint URL and paste it into the `config/database.yml` file. Go to your AWS console, navigate to the Aurora console in the Ohio region and grab the Aurora Primary Cluster Endpoint URL. Look for `[YOUR_DB_CLUSTER_ENDPOINT_IN_PRIMARY_REGION]` comment and paste the value there.
+1. We will need to get the Ohio Aurora Read Replica Cluster Endpoint URL and paste it into the `config/shards.yml` file. Go to your AWS console, navigate to the Aurora console in the Ohio region and grab the Aurora Read Replica Cluster Endpoint URL. Look for `[YOUR_DB_CLUSTER_READONLY_ENDPOINT_IN_PRIMARY_REGION]` comment and paste the value there.
+1. We will need to get the Frankfurt Aurora Primary Endpoint URL and paste it into the `config/shards.yml` file. Go to your AWS console, navigate to the Aurora console in the Frankfurt region and grab the Aurora Primary Cluster Endpoint URL. Look for `[YOUR_DB_CLUSTER_ENDPOINT_IN_SECONDARY_REGION]` comment and paste the value there.
+1. We will need to get the Frankfurt Aurora Read Replica Cluster Endpoint URL and paste it into the `config/shards.yml` file. Go to your AWS console, navigate to the Aurora console in the Frankfurt region and grab the Aurora Read Replica Cluster Endpoint URL. Look for `[YOUR_DB_CLUSTER_READONLY_ENDPOINT_IN_SECONDARY_REGION]` comment and paste the value there.
+
+Now that we are done configuring the app with the database endpoints, we can now build the container and run it.
+
 Run the following command to build the container
 ```
 docker-compose build
 ```
-
-Once that is complete, run this command to find the Docker Image ID of the container image you just created.
+Now run the following command to run the backend container.
 ```
-docker images
-```
-
-Now that you identified the Docker Image ID, run the following command to run the backend container.
-```
-docker run -it -p 3000:3000 DOCKER_IMAGE_ID
+docker-compose up
 ```
 
 Congratulations, the backend is now setup. Lets go back to the root of this repo and navigate into the `frontend` folder to build the frontend and connect it to your backend.
