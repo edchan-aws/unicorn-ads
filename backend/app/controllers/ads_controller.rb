@@ -28,7 +28,7 @@ class AdsController < ApplicationController
     @ad = Ad.new(ad_params)
 
     respond_to do |format|
-      if Ad.using(master_db).create(@ad)
+      if Ad.using(master_db).create(ad_params)
         format.html { redirect_to @ad, notice: 'Ad was successfully created.' }
         format.json { render :show, status: :created, location: @ad }
       else
