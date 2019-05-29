@@ -14,7 +14,7 @@ default: &default
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: ads
-  password: Hacker355!
+  password: <%= ENV['ADS_DB_PASSWORD'] %>
   port: 3306
 #  host: host.docker.internal
   socket: /tmp/mysql.sock
