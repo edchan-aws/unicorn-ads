@@ -11,7 +11,7 @@ octopus:
       host: [YOUR_DB_CLUSTER_READONLY_ENDPOINT_IN_PRIMARY_REGION]
       database: ads
       username: ads
-      password: Hacker355!
+      password: [DB_PASSWORD]
       port: 3306
       reconnect: true
     frankfurt:
@@ -19,7 +19,7 @@ octopus:
       host: [YOUR_DB_CLUSTER_ENDPOINT_IN_SECONDARY_REGION]
       database: ads
       username: ads
-      password: Hacker355!
+      password: [DB_PASSWORD]
       port: 3306
       reconnect: true
     frankfurt_ro:
@@ -27,7 +27,7 @@ octopus:
       host: [YOUR_DB_CLUSTER_READONLY_ENDPOINT_IN_SECONDARY_REGION]
       database: ads
       username: ads
-      password: Hacker355!
+      password: [DB_PASSWORD]
       port: 3306
       reconnect: true
   staging:
@@ -36,7 +36,7 @@ octopus:
       host: <%= ENV['RDS_READ_REPLICA_HOSTNAME'] %>
       database: ads
       username: ads
-      password: Hacker355!
+      password: [DB_PASSWORD]
       reconnect: true
   production:
     ohio_ro:
